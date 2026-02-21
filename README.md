@@ -56,16 +56,16 @@ Bangalore-house-price-predictor/ │ ├── app.py\
 ## ⚙️ Installation & Setup
 
 1.  Clone the repository: git clone
-    [https://github.com/zishan khan/Bangalore-house-price-predictor.git
-](https://github.com/zishankhan/Bangalore-house-price-predictor.git)
+   [ [https://github.com/zishan khan/Bangalore-house-price-predictor.git
+](https://github.com/zishankhan/Bangalore-house-price-predictor.git)](https://github.com/zk747933-jpg/Bangalore-House-Price)
 2.  Navigate to the project folder: cd Bangalore-house-price-predictor
 
 3.  Install dependencies: pip install -r requirements.txt
 
 4.  Run the application: python app.py
 
-5.  Open your browser and go to: http://127.0.0.1:5000/
-
+5.  Open your browser and go to: [http://127.0.0.1:5000/
+](https://bangalore-house-price-fdrhbtaohx6xyb8eeeser2.streamlit.app/)
 ------------------------------------------------------------------------
 
 ## 🎯 How It Works

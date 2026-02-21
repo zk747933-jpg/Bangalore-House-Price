@@ -56,7 +56,7 @@ Bangalore-house-price-predictor/ │ ├── app.py\
 ## ⚙️ Installation & Setup
 
 1.  Clone the repository: git clone
-    https://github.com/your-username/Bangalore-house-price-predictor.git
+    https://github.com/zishan khan/Bangalore-house-price-predictor.git
 
 2.  Navigate to the project folder: cd Bangalore-house-price-predictor
 

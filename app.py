@@ -1,42 +1,42 @@
-from flask import Flask, render_template, request
+import streamlit as st
 import pickle
 import pandas as pd
 import numpy as np
 
-app = Flask(__name__)
+st.set_page_config(page_title="Bangalore House Price Predictor", layout="centered")
 
-# model load
-with open('bangalore_home_prices_model (1).pkl', 'rb') as f:
-    model = pickle.load(f)
+st.title("🏠 Bangalore House Price Predictor")
+st.write("Enter details below to predict house price in Bangalore.")
 
-# ✅ extract locations for dropdown
-locations = model.named_steps['columntransformer'] \
-    .transformers_[0][1] \
-    .categories_[0]
+# Load Model Safely
+try:
+    with open('bangalore_home_prices_model (1).pkl', 'rb') as f:
+        model = pickle.load(f)
 
-@app.route('/')
-def home():
-    return render_template('index.html', locations=locations)
+    # Extract locations safely
+    locations = model.named_steps['columntransformer'] \
+        .transformers_[0][1] \
+        .categories_[0]
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    location = request.form['location']
-    sqft = float(request.form['sqft'])
-    bath = int(request.form['bath'])
-    bhk = int(request.form['bhk'])
+except Exception as e:
+    st.error("❌ Model file not found or failed to load.")
+    st.stop()
 
+# User Inputs
+location = st.selectbox("Select Location", locations)
+sqft = st.number_input("Total Sqft", min_value=300)
+bath = st.number_input("Number of Bathrooms", min_value=1, step=1)
+bhk = st.number_input("BHK", min_value=1, step=1)
+
+# Prediction
+if st.button("Predict Price"):
     input_df = pd.DataFrame(
         [[location, sqft, bath, bhk]],
         columns=['location', 'total_sqft', 'bath', 'bhk']
     )
 
-    price = model.predict(input_df)[0]
-
-    return render_template(
-        'index.html',
-        prediction_text=f"Estimated Price: ₹ {round(price, 2)} Lakhs",
-        locations=locations
-    )
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    try:
+        price = model.predict(input_df)[0]
+        st.success(f"💰 Estimated Price: ₹ {round(price,2)} Lakhs")
+    except:
+        st.error("Prediction failed. Check model format.")
